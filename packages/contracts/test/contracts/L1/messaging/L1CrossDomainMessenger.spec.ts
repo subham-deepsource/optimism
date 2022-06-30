@@ -331,7 +331,7 @@ describe('L1CrossDomainMessenger', () => {
     target: string,
     sender: string,
     message: string,
-    messageNonce: number = 0
+    messageNonce = 0
   ): Promise<{
     calldata: string
     proof: any
