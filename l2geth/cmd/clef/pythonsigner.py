@@ -140,7 +140,6 @@ class StdIOHandler():
         """
         if 'text' in message.keys():
             sys.stderr.write("Error: {}\n".format( message['text']))
-        return
 
     @public
     def ShowInfo(self,message = {}):
@@ -154,7 +153,6 @@ class StdIOHandler():
 
         if 'text' in message.keys():
             sys.stdout.write("Error: {}\n".format( message['text']))
-        return
 
 def main(args):
     cmd = ["clef", "--stdio-ui"]
