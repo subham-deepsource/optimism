@@ -128,7 +128,7 @@ export class DepositTx {
     const fields: any = [
       this.sourceHash() || '0x',
       ethers.utils.getAddress(this.from) || '0x',
-      this.to != null ? ethers.utils.getAddress(this.to) : '0x',
+      this.to !== null ? ethers.utils.getAddress(this.to) : '0x',
       formatNumber(this.mint || 0, 'mint'),
       formatNumber(this.value || 0, 'value'),
       formatNumber(this.gas || 0, 'gas'),
