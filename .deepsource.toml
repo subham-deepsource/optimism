@@ -5,7 +5,7 @@ name = "test-coverage"
 enabled = true
 
 [[analyzers]]
-name = "terraform"
+name = "shell"
 enabled = true
 
 [[analyzers]]
@@ -13,7 +13,15 @@ name = "sql"
 enabled = true
 
 [[analyzers]]
-name = "shell"
+name = "terraform"
+enabled = true
+
+[[analyzers]]
+name = "secrets"
+enabled = true
+
+[[analyzers]]
+name = "scala"
 enabled = true
 
 [[analyzers]]
@@ -24,15 +32,7 @@ enabled = true
   msrv = "1.30.0"
 
 [[analyzers]]
-name = "scala"
-enabled = true
-
-[[analyzers]]
-name = "secrets"
-enabled = true
-
-[[analyzers]]
-name = "ruby"
+name = "php"
 enabled = true
 
 [[analyzers]]
@@ -43,7 +43,11 @@ enabled = true
   runtime_version = "3.x.x"
 
 [[analyzers]]
-name = "php"
+name = "ruby"
+enabled = true
+
+[[analyzers]]
+name = "javascript"
 enabled = true
 
 [[analyzers]]
@@ -59,10 +63,6 @@ enabled = true
 
   [analyzers.meta]
   runtime_version = "11"
-
-[[analyzers]]
-name = "javascript"
-enabled = true
 
 [[analyzers]]
 name = "docker"
