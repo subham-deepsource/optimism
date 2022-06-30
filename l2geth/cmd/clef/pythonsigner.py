@@ -1,4 +1,4 @@
-import os,sys, subprocess
+import sys, subprocess
 from tinyrpc.transports import ServerTransport
 from tinyrpc.protocols.jsonrpc import JSONRPCProtocol
 from tinyrpc.dispatch import public,RPCDispatcher
