@@ -18,10 +18,12 @@ except ImportError:
 
 class StdIOTransport(ServerTransport):
     """ Uses std input/output for RPC """
-    def receive_message(self):
+    @staticmethod
+    def receive_message():
         return None, urlparse.unquote(sys.stdin.readline())
 
-    def send_reply(self, context, reply):
+    @staticmethod
+    def send_reply(context, reply):
         print(reply)
 
 class PipeTransport(ServerTransport):
