@@ -536,7 +536,7 @@ SolidityTypeAddress.prototype = new SolidityType({});
 SolidityTypeAddress.prototype.constructor = SolidityTypeAddress;
 
 SolidityTypeAddress.prototype.isType = function (name) {
-    return !!name.match(/address(\[([0-9]*)\])?/);
+    return Boolean(name.match(/address(\[([0-9]*)\])?/));
 };
 
 module.exports = SolidityTypeAddress;
@@ -564,7 +564,7 @@ SolidityTypeBool.prototype = new SolidityType({});
 SolidityTypeBool.prototype.constructor = SolidityTypeBool;
 
 SolidityTypeBool.prototype.isType = function (name) {
-    return !!name.match(/^bool(\[([0-9]*)\])*$/);
+    return Boolean(name.match(/^bool(\[([0-9]*)\])*$/));
 };
 
 module.exports = SolidityTypeBool;
@@ -595,7 +595,7 @@ SolidityTypeBytes.prototype = new SolidityType({});
 SolidityTypeBytes.prototype.constructor = SolidityTypeBytes;
 
 SolidityTypeBytes.prototype.isType = function (name) {
-    return !!name.match(/^bytes([0-9]{1,})(\[([0-9]*)\])*$/);
+    return Boolean(name.match(/^bytes([0-9]{1,})(\[([0-9]*)\])*$/));
 };
 
 module.exports = SolidityTypeBytes;
@@ -749,7 +749,7 @@ SolidityCoder.prototype.encodeWithOffset = function (type, solidityType, encoded
                 var previousLength = 2; // in int
                 if (solidityType.isDynamicArray(nestedName)) {
                     for (var i = 1; i < encoded.length; i++) {
-                        previousLength += +(encoded[i - 1])[0] || 0;
+                        previousLength += Number((encoded[i - 1])[0]) || 0;
                         result += f.formatInputInt(offset + i * nestedStaticPartLength + previousLength * 32).encode();
                     }
                 }
@@ -778,7 +778,7 @@ SolidityCoder.prototype.encodeWithOffset = function (type, solidityType, encoded
                     var previousLength = 0; // in int
                     for (var i = 0; i < encoded.length; i++) {
                         // calculate length of previous item
-                        previousLength += +(encoded[i - 1] || [])[0] || 0;
+                        previousLength += Number((encoded[i - 1] || [])[0]) || 0;
                         result += f.formatInputInt(offset + i * nestedStaticPartLength + previousLength * 32).encode();
                     }
                 })();
@@ -878,7 +878,7 @@ SolidityTypeDynamicBytes.prototype = new SolidityType({});
 SolidityTypeDynamicBytes.prototype.constructor = SolidityTypeDynamicBytes;
 
 SolidityTypeDynamicBytes.prototype.isType = function (name) {
-    return !!name.match(/^bytes(\[([0-9]*)\])*$/);
+    return Boolean(name.match(/^bytes(\[([0-9]*)\])*$/));
 };
 
 SolidityTypeDynamicBytes.prototype.isDynamicType = function () {
@@ -1170,7 +1170,7 @@ SolidityTypeInt.prototype = new SolidityType({});
 SolidityTypeInt.prototype.constructor = SolidityTypeInt;
 
 SolidityTypeInt.prototype.isType = function (name) {
-    return !!name.match(/^int([0-9]*)?(\[([0-9]*)\])*$/);
+    return Boolean(name.match(/^int([0-9]*)?(\[([0-9]*)\])*$/));
 };
 
 module.exports = SolidityTypeInt;
@@ -1358,7 +1358,7 @@ SolidityTypeReal.prototype = new SolidityType({});
 SolidityTypeReal.prototype.constructor = SolidityTypeReal;
 
 SolidityTypeReal.prototype.isType = function (name) {
-    return !!name.match(/real([0-9]*)?(\[([0-9]*)\])?/);
+    return Boolean(name.match(/real([0-9]*)?(\[([0-9]*)\])?/));
 };
 
 module.exports = SolidityTypeReal;
@@ -1376,7 +1376,7 @@ SolidityTypeString.prototype = new SolidityType({});
 SolidityTypeString.prototype.constructor = SolidityTypeString;
 
 SolidityTypeString.prototype.isType = function (name) {
-    return !!name.match(/^string(\[([0-9]*)\])*$/);
+    return Boolean(name.match(/^string(\[([0-9]*)\])*$/));
 };
 
 SolidityTypeString.prototype.isDynamicType = function () {
@@ -1440,7 +1440,7 @@ SolidityType.prototype.staticPartLength = function (name) {
  */
 SolidityType.prototype.isDynamicArray = function (name) {
     var nestedTypes = this.nestedTypes(name);
-    return !!nestedTypes && !nestedTypes[nestedTypes.length - 1].match(/[0-9]{1,}/g);
+    return Boolean(nestedTypes) && !nestedTypes[nestedTypes.length - 1].match(/[0-9]{1,}/g);
 };
 
 /**
@@ -1455,7 +1455,7 @@ SolidityType.prototype.isDynamicArray = function (name) {
  */
 SolidityType.prototype.isStaticArray = function (name) {
     var nestedTypes = this.nestedTypes(name);
-    return !!nestedTypes && !!nestedTypes[nestedTypes.length - 1].match(/[0-9]{1,}/g);
+    return Boolean(nestedTypes) && Boolean(nestedTypes[nestedTypes.length - 1].match(/[0-9]{1,}/g));
 };
 
 /**
@@ -1671,7 +1671,7 @@ SolidityTypeUInt.prototype = new SolidityType({});
 SolidityTypeUInt.prototype.constructor = SolidityTypeUInt;
 
 SolidityTypeUInt.prototype.isType = function (name) {
-    return !!name.match(/^uint([0-9]*)?(\[([0-9]*)\])*$/);
+    return Boolean(name.match(/^uint([0-9]*)?(\[([0-9]*)\])*$/));
 };
 
 module.exports = SolidityTypeUInt;
@@ -1705,7 +1705,7 @@ SolidityTypeUReal.prototype = new SolidityType({});
 SolidityTypeUReal.prototype.constructor = SolidityTypeUReal;
 
 SolidityTypeUReal.prototype.isType = function (name) {
-    return !!name.match(/^ureal([0-9]*)?(\[([0-9]*)\])*$/);
+    return Boolean(name.match(/^ureal([0-9]*)?(\[([0-9]*)\])*$/));
 };
 
 module.exports = SolidityTypeUReal;
@@ -2099,7 +2099,7 @@ var toHex = function (val) {
     /*jshint maxcomplexity: 8 */
 
     if (isBoolean(val))
-        return fromDecimal(+val);
+        return fromDecimal(Number(val));
 
     if (isBigNumber(val))
         return fromDecimal(val);
@@ -2402,7 +2402,7 @@ var isArray = function (object) {
  */
 var isJson = function (str) {
     try {
-        return !!JSON.parse(str);
+        return Boolean(JSON.parse(str));
     } catch (e) {
         return false;
     }
@@ -3139,7 +3139,7 @@ module.exports = {
         return new Error('Provider not set or invalid');
     },
     InvalidResponse: function (result){
-        var message = !!result && !!result.error && !!result.error.message ? result.error.message : 'Invalid JSON RPC response: ' + JSON.stringify(result);
+        var message = Boolean(result) && Boolean(result.error) && Boolean(result.error.message) ? result.error.message : 'Invalid JSON RPC response: ' + JSON.stringify(result);
         return new Error(message);
     },
     ConnectionTimeout: function (ms){
@@ -4806,7 +4806,7 @@ IpcProvider.prototype.isConnected = function() {
     if(!_this.connection.writable)
         _this.connection.connect({path: _this.path});
 
-    return !!this.connection.writable;
+    return Boolean(this.connection.writable);
 };
 
 IpcProvider.prototype.send = function (payload) {
@@ -4909,7 +4909,7 @@ Jsonrpc.isValidResponse = function (response) {
     return Array.isArray(response) ? response.every(validateSingleMessage) : validateSingleMessage(response);
 
     function validateSingleMessage(message){
-      return !!message &&
+      return Boolean(message) &&
         !message.error &&
         message.jsonrpc === '2.0' &&
         typeof message.id === 'number' &&
@@ -5293,7 +5293,7 @@ var methods = function () {
         name: 'getBlock',
         call: blockCall,
         params: 2,
-        inputFormatter: [formatters.inputBlockNumberFormatter, function (val) { return !!val; }],
+        inputFormatter: [formatters.inputBlockNumberFormatter, function (val) { return Boolean(val); }],
         outputFormatter: formatters.outputBlockFormatter
     });
 
@@ -6534,7 +6534,7 @@ RequestManager.prototype.poll = function () {
             } else
                 return false;
         }).filter(function (result) {
-            return !!result; 
+            return Boolean(result); 
         }).filter(function (result) {
             var valid = Jsonrpc.isValidResponse(result);
             if (!valid) {
@@ -7205,7 +7205,7 @@ module.exports = transfer;
 	    var StreamCipher = C_lib.StreamCipher = Cipher.extend({
 	        _doFinalize: function () {
 	            // Process partial blocks
-	            var finalProcessedBlocks = this._process(!!'flush');
+	            var finalProcessedBlocks = this._process(Boolean('flush'));
 
 	            return finalProcessedBlocks;
 	        },
@@ -7475,10 +7475,10 @@ module.exports = transfer;
 	                padding.pad(this._data, this.blockSize);
 
 	                // Process final blocks
-	                var finalProcessedBlocks = this._process(!!'flush');
+	                var finalProcessedBlocks = this._process(Boolean('flush'));
 	            } else /* if (this._xformMode == this._DEC_XFORM_MODE) */ {
 	                // Process final blocks
-	                var finalProcessedBlocks = this._process(!!'flush');
+	                var finalProcessedBlocks = this._process(Boolean('flush'));
 
 	                // Unpad data
 	                padding.unpad(finalProcessedBlocks);
