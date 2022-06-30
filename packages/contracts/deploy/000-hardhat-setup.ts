@@ -16,11 +16,11 @@ const deployFn: DeployFunction = async (hre) => {
     return
   }
 
-  console.log(`Running custom setup for forked experimental networks`)
+  
   const { deployer } = await hre.getNamedAccounts()
 
   // Fund the deployer account so it can be used for the rest of this deployment.
-  console.log(`Funding deployer account...`)
+  
   await fundAccount(hre, deployer, BIG_BALANCE)
 
   // Get a reference to the AddressManager contract.
@@ -30,7 +30,7 @@ const deployFn: DeployFunction = async (hre) => {
   )
 
   // Transfer ownership of the AddressManager to the deployer.
-  console.log(`Setting AddressManager owner to ${deployer}`)
+  
   await sendImpersonatedTx({
     hre,
     contract: Lib_AddressManager,
@@ -40,7 +40,7 @@ const deployFn: DeployFunction = async (hre) => {
     args: [deployer],
   })
 
-  console.log(`Waiting for owner to be correctly set...`)
+  
   await awaitCondition(
     async () => {
       return (await Lib_AddressManager.owner()) === deployer
@@ -56,7 +56,7 @@ const deployFn: DeployFunction = async (hre) => {
   )
 
   // Transfer ownership of the L1StandardBridge to the deployer.
-  console.log(`Setting L1StandardBridge owner to ${deployer}`)
+  
   await sendImpersonatedTx({
     hre,
     contract: Proxy__OVM_L1StandardBridge,
@@ -68,7 +68,7 @@ const deployFn: DeployFunction = async (hre) => {
     args: [deployer],
   })
 
-  console.log(`Waiting for owner to be correctly set...`)
+  
   await awaitCondition(
     async () => {
       return (

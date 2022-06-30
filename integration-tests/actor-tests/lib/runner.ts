@@ -38,17 +38,17 @@ const shouldServeMetrics = options.serve !== undefined
 const metricsPort = options.serve || 8545
 
 if (isNaN(runsNum) && isNaN(timeNum)) {
-  console.error('Must define either a number of runs or how long to run.')
+  
   process.exit(1)
 }
 
 if (isNaN(concNum) || concNum <= 0) {
-  console.error('Invalid concurrency value.')
+  
   process.exit(1)
 }
 
 if (isNaN(thinkNum) || thinkNum < 0) {
-  console.error('Invalid think time value.')
+  
   process.exit(1)
 }
 
@@ -79,7 +79,7 @@ defaultRuntime
     process.exit(0)
   })
   .catch((err) => {
-    console.error('Error:')
-    console.error(err)
+    
+    
     process.exit(1)
   })

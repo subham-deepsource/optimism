@@ -24,7 +24,7 @@ task('accounts', 'Prints the list of accounts').setAction(async (args, hre) => {
   const accounts = await hre.ethers.getSigners()
 
   for (const account of accounts) {
-    console.log(account.address)
+    
   }
 })
 
@@ -53,11 +53,11 @@ task('deposit', 'Deposits funds onto Optimism.')
     })
 
     const amountWei = utils.parseEther(amountEth)
-    console.log(`Depositing ${amountEth} ETH to ${to}...`)
+    
     const tx = await messenger.depositETH(amountWei, {
       recipient: to,
     })
-    console.log(`Got TX hash ${tx.hash}. Waiting...`)
+    
     await tx.wait()
 
     const l1WalletOnL2 = new Wallet(privateKey, l2Provider)
@@ -67,8 +67,8 @@ task('deposit', 'Deposits funds onto Optimism.')
     })
 
     const balance = await l2Provider.getBalance(to)
-    console.log('Funded account balance', balance.toString())
-    console.log('Done.')
+    
+    
   })
 
 const privKey = process.env.PRIVATE_KEY || '0x' + '11'.repeat(32)

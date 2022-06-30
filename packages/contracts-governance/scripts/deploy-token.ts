@@ -31,7 +31,7 @@ task('deploy-token', 'Deploy governance token and its mint manager contracts')
     process.env.PRIVATE_KEY_TOKEN_DEPLOYER
   )
   .setAction(async (args, hre) => {
-    console.log('Deploying token to', hre.network.name, 'network')
+    
     // There cannot be two ledgers at the same time
     let tokenDeployer
     // Deploy the token
@@ -62,15 +62,15 @@ task('deploy-token', 'Deploy governance token and its mint manager contracts')
     )
 
     const addrTokenDeployer = await tokenDeployer.getAddress()
-    console.log(`Using token deployer: ${addrTokenDeployer}`)
+    
 
     const tokenDeployerBalance = await tokenDeployer.getBalance()
     if (tokenDeployerBalance.eq(0)) {
       throw new Error(`Token deployer has no balance`)
     }
-    console.log(`Token deployer balance: ${tokenDeployerBalance.toString()}`)
+    
     const nonceTokenDeployer = await tokenDeployer.getTransactionCount()
-    console.log(`Token deployer nonce: ${nonceTokenDeployer}`)
+    
 
     const GovernanceToken = await hre.ethers.getContractFactory(
       'GovernanceToken'
@@ -84,80 +84,67 @@ task('deploy-token', 'Deploy governance token and its mint manager contracts')
       // Deploy the GovernanceToken
       governanceToken = await GovernanceToken.connect(tokenDeployer).deploy()
       const tokenReceipt = await governanceToken.deployTransaction.wait()
-      console.log('GovernanceToken deployed to:', tokenReceipt.contractAddress)
+      
 
       if (tokenReceipt.contractAddress !== addresses.governanceToken) {
-        console.log(
-          `Expected governance token address ${addresses.governanceToken}`
-        )
-        console.log(`Got ${tokenReceipt.contractAddress}`)
+        
+        
         throw new Error(`Fatal error! Mismatch of governance token address`)
       }
     } else {
-      console.log(
-        `GovernanceToken already deployed at ${addresses.governanceToken}, skipping`
-      )
-      console.log(`Deployer nonce: ${nonceTokenDeployer}`)
-      console.log(`Code size: ${governanceTokenCode.length}`)
+      
+      
+      
     }
 
     const { mintManagerOwner } = args
 
     // Do the deployer things
-    console.log('Deploying MintManager')
+    
     const addr = await deployer.getAddress()
-    console.log(`Using MintManager deployer: ${addr}`)
+    
 
     const deployerBalance = await deployer.getBalance()
     if (deployerBalance.eq(0)) {
       throw new Error('Deployer has no balance')
     }
-    console.log(`Deployer balance: ${deployerBalance.toString()}`)
+    
     const deployerNonce = await deployer.getTransactionCount()
-    console.log(`Deployer nonce: ${deployerNonce}`)
+    
     await prompt('Does this look OK?')
 
     const MintManager = await hre.ethers.getContractFactory('MintManager')
     // Deploy the MintManager
-    console.log(
-      `Deploying MintManager with (${mintManagerOwner}, ${addresses.governanceToken})`
-    )
+    
     const mintManager = await MintManager.connect(deployer).deploy(
       mintManagerOwner,
       addresses.governanceToken
     )
 
     const receipt = await mintManager.deployTransaction.wait()
-    console.log(`Deployed mint manager to ${receipt.contractAddress}`)
+    
     let mmOwner = await mintManager.owner()
     const currTokenOwner = await governanceToken
       .attach(addresses.governanceToken)
       .owner()
-    console.log(
-      'About to transfer ownership of the token to the mint manager! This is irreversible.'
-    )
-    console.log(`Current token owner:   ${currTokenOwner}`)
-    console.log(`Mint manager address:  ${mintManager.address}`)
-    console.log(`Mint manager owner:    ${mmOwner}`)
+    
+    
+    
+    
     await prompt('Is this OK?')
 
-    console.log('Transferring ownership...')
+    
     // Transfer ownership of the token to the MintManager instance
     const tx = await governanceToken
       .attach(addresses.governanceToken)
       .transferOwnership(mintManager.address)
     await tx.wait()
-    console.log(
-      `Transferred ownership of governance token to ${mintManager.address}`
-    )
+    
 
-    console.log('MintManager deployed to:', receipt.contractAddress)
-    console.log('MintManager owner set to:', mintManagerOwner)
-    console.log(
-      'MintManager governanceToken set to:',
-      addresses.governanceToken
-    )
-    console.log('### Token deployment complete ###')
+    
+    
+    
+    
 
     const tokOwner = await governanceToken
       .attach(addresses.governanceToken)
@@ -175,5 +162,5 @@ task('deploy-token', 'Deploy governance token and its mint manager contracts')
     if (mmOwner !== mintManagerOwner) {
       throw new Error(`MintManager owner not set correctly`)
     }
-    console.log('Validated MintManager config')
+    
   })

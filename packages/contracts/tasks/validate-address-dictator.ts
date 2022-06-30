@@ -50,13 +50,9 @@ task('validate:address-dictator')
     const provider = new ethers.providers.JsonRpcProvider(args.contractsRpcUrl)
 
     const network = await provider.getNetwork()
-    console.log()
+    
     printSectionHead("First make sure you're on the right chain:")
-    console.log(
-      `Reading from the ${c.red(network.name)} network (Chain ID: ${c.red(
-        '' + network.chainId
-      )})`
-    )
+    
     await getInput(c.yellow('OK? Hit enter to continue.'))
 
     const dictatorArtifact = getContractDefinition('AddressDictator')
@@ -108,7 +104,7 @@ Validate the Address Dictator deployment at\n${getEtherscanUrl(
     // Now we loop over those and compare the addresses/deployedBytecode to deployment artifacts.
     for (const pair of namedAddresses) {
       if (pair.name === 'L2CrossDomainMessenger') {
-        console.log('L2CrossDomainMessenger is set to:', pair.addr)
+        
         await getInput(c.yellow('OK? Hit enter to continue.'))
         // This is an L2 predeploy, so we skip bytecode and config validation.
         continue
@@ -157,7 +153,7 @@ Upgraded address ${getEtherscanUrl(network, pair.addr)}`
       }
       await validateDeployedConfig(provider, network, args.manager, pair)
     }
-    console.log(c.green('\nAddressManager Validation complete!'))
+    
   })
 
 /**
@@ -280,7 +276,7 @@ Ensure that the ${pair.name} at\n${getEtherscanUrl(
       }
     )
   } else {
-    console.log(c.green(`${pair.name} has no config to check`))
+    
     await getInput(c.yellow('OK? Hit enter to continue.'))
   }
 }

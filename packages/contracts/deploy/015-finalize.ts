@@ -19,16 +19,14 @@ const deployFn: DeployFunction = async (hre) => {
   const owner = hre.deployConfig.ovmAddressManagerOwner
   const remoteOwner = await Lib_AddressManager.owner()
   if (hexStringEquals(owner, remoteOwner)) {
-    console.log(
-      `✓ Not changing owner of Lib_AddressManager because it's already correctly set`
-    )
+    
     return
   }
 
-  console.log(`Transferring ownership of Lib_AddressManager to ${owner}...`)
+  
   await Lib_AddressManager.transferOwnership(owner)
 
-  console.log(`Confirming transfer was successful...`)
+  
   await awaitCondition(
     async () => {
       return hexStringEquals(await Lib_AddressManager.owner(), owner)
@@ -37,7 +35,7 @@ const deployFn: DeployFunction = async (hre) => {
     100
   )
 
-  console.log(`✓ Set owner of Lib_AddressManager to: ${owner}`)
+  
 }
 
 deployFn.tags = ['upgrade', 'finalize']

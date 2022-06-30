@@ -54,19 +54,19 @@ task('set-owner')
       .connect(provider)
 
     const addr = await signer.getAddress()
-    console.log(`Using signer ${addr}`)
+    
     const owner = await Ownable.callStatic.owner()
     if (owner !== addr) {
       throw new Error(`Incorrect key. Owner ${owner}, Signer ${addr}`)
     }
 
-    console.log(`Owner is currently ${owner.toString()}`)
-    console.log(`Setting owner to ${args.owner}`)
+    
+    
 
     const tx = await Ownable.connect(signer).transferOwnership(args.owner, {
       gasPrice: args.transactionGasPrice,
     })
 
     const receipt = await tx.wait()
-    console.log(`Success - ${receipt.transactionHash}`)
+    
   })

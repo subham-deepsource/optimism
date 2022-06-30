@@ -59,7 +59,7 @@ task('deposit', 'Deposits funds onto L2.')
     }
 
     const from = await l1Wallet.getAddress()
-    console.log(`Sending from ${from}`)
+    
     const balance = await l1Wallet.getBalance()
     if (balance.eq(0)) {
       throw new Error(`${from} has no balance`)
@@ -72,7 +72,7 @@ task('deposit', 'Deposits funds onto L2.')
 
     const amountWei = utils.parseEther(amountEth)
     const value = amountWei.add(utils.parseEther('0.01'))
-    console.log(`Depositing ${amountEth} ETH to ${to}`)
+    
     // Below adds 0.01 ETH to account for gas.
     const tx = await depositFeed.depositTransaction(
       to,
@@ -82,7 +82,7 @@ task('deposit', 'Deposits funds onto L2.')
       [],
       { value }
     )
-    console.log(`Got TX hash ${tx.hash}. Waiting...`)
+    
     const receipt = await tx.wait()
 
     // find the transaction deposited event and derive
@@ -92,12 +92,12 @@ task('deposit', 'Deposits funds onto L2.')
     )
     const l2tx = DepositTx.fromL1Event(event)
     const hash = l2tx.hash()
-    console.log(`Waiting for L2 TX hash ${hash}`)
+    
 
     while (true) {
       const expected = await l2Provider.send('eth_getTransactionByHash', [hash])
       if (expected) {
-        console.log('Deposit success')
+        
         break
       }
       await sleep(500)

@@ -16,6 +16,6 @@ const main = async () => {
     gasLimit: +gasLimit,
     data,
   })
-  console.log(proof)
+  
 }
 main()

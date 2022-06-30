@@ -49,11 +49,11 @@ task(
       const hashA = blocks[0].hash
       const hashB = blocks[1].hash
       if (hashA !== hashB) {
-        console.log(`HASH MISMATCH! block=${n} a=${hashA} b=${hashB}`)
+        
         continue
       }
 
-      console.log(`HASHES OK! block=${n} hash=${hashA}`)
+      
       return
     }
   })

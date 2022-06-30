@@ -15,7 +15,7 @@ task('multi-send', 'Send tokens to multiple addresses')
   )
   .addParam('inFile', 'Distribution file')
   .setAction(async (args, hre) => {
-    console.log(`Starting multi send on ${hre.network.name} network`)
+    
 
     // Load the distribution setup
     const distributionJson = fs.readFileSync(args.inFile).toString()
@@ -25,15 +25,11 @@ task('multi-send', 'Send tokens to multiple addresses')
     )
 
     const addr = await sender.getAddress()
-    console.log(`Using deployer: ${addr}`)
+    
 
-    console.log('Performing multi send to the following addresses:')
+    
     for (const [address, amount] of Object.entries(distribution)) {
-      console.log(
-        `${address}: ${amount} (${hre.ethers.utils.parseEther(
-          amount as string
-        )})`
-      )
+      
     }
     await prompt('Is this OK?')
 
@@ -46,11 +42,11 @@ task('multi-send', 'Send tokens to multiple addresses')
 
     for (const [address, amount] of Object.entries(distribution)) {
       const amountBase = hre.ethers.utils.parseEther(amount as string)
-      console.log(`Transferring ${amountBase} tokens to ${address}...`)
+      
       const transferTx = await governanceToken.transfer(address, amountBase)
-      console.log(`Waiting for tx ${transferTx.hash}`)
+      
       await transferTx.wait()
     }
 
-    console.log('Done.')
+    
   })

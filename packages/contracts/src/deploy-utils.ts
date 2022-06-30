@@ -47,21 +47,21 @@ export const deployAndVerifyAndThen = async ({
       // verified. Possibly due to a race condition. We don't want to halt the whole deployment
       // process just because that happens.
       try {
-        console.log('Verifying on Etherscan...')
+        
         await hre.run('verify:verify', {
           address: result.address,
           constructorArguments: args,
         })
-        console.log('Successfully verified on Etherscan')
+        
       } catch (error) {
         console.log('Error when verifying bytecode on Etherscan:')
         console.log(error)
       }
 
       try {
-        console.log('Verifying on Sourcify...')
+        
         await hre.run('sourcify')
-        console.log('Successfully verified on Sourcify')
+        
       } catch (error) {
         console.log('Error when verifying bytecode on Sourcify:')
         console.log(error)
@@ -140,9 +140,7 @@ export const getAdvancedContract = (opts: {
           timeout++
           if (timeout > maxTimeout && opts.hre.network.name === 'kovan') {
             // Special resubmission logic ONLY required on Kovan.
-            console.log(
-              `WARNING: Exceeded max timeout on transaction. Attempting to submit transaction again...`
-            )
+            
             return contract[fnName](...args)
           }
         } else if (
@@ -166,13 +164,13 @@ export const fundAccount = async (
     throw new Error('this method can only be used against a forked network')
   }
 
-  console.log(`Funding account ${address}...`)
+  
   await hre.ethers.provider.send('hardhat_setBalance', [
     address,
     amount.toHexString(),
   ])
 
-  console.log(`Waiting for balance to reflect...`)
+  
   await awaitCondition(
     async () => {
       const balance = await hre.ethers.provider.getBalance(address)
@@ -182,7 +180,7 @@ export const fundAccount = async (
     100
   )
 
-  console.log(`Account successfully funded.`)
+  
 }
 
 export const sendImpersonatedTx = async (opts: {
@@ -197,13 +195,13 @@ export const sendImpersonatedTx = async (opts: {
     throw new Error('this method can only be used against a forked network')
   }
 
-  console.log(`Impersonating account ${opts.from}...`)
+  
   await opts.hre.ethers.provider.send('hardhat_impersonateAccount', [opts.from])
 
-  console.log(`Funding account ${opts.from}...`)
+  
   await fundAccount(opts.hre, opts.from, BIG_BALANCE)
 
-  console.log(`Sending impersonated transaction...`)
+  
   const tx = await opts.contract.populateTransaction[opts.fn](...opts.args)
   const provider = new opts.hre.ethers.providers.JsonRpcProvider(
     (opts.hre.network.config as HttpNetworkConfig).url
@@ -216,7 +214,7 @@ export const sendImpersonatedTx = async (opts: {
     },
   ])
 
-  console.log(`Stopping impersonation of account ${opts.from}...`)
+  
   await opts.hre.ethers.provider.send('hardhat_stopImpersonatingAccount', [
     opts.from,
   ])

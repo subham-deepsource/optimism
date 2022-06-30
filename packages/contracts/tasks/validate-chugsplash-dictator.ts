@@ -47,15 +47,11 @@ task('validate:chugsplash-dictator')
     const provider = new ethers.providers.JsonRpcProvider(args.contractsRpcUrl)
 
     const network = await provider.getNetwork()
-    console.log() // the whitespacooooooor
-    console.log(c.cyan("First make sure you're on the right chain:"))
-    console.log(
-      `Reading from the ${c.red(network.name)} network (Chain ID: ${c.red(
-        '' + network.chainId
-      )})`
-    )
+     // the whitespacooooooor
+    
+    
     await getInput(c.yellow('OK? Hit enter to continue.'))
-    console.log()
+    
 
     const dictatorArtifact = getContractDefinition('ChugSplashDictator')
     const dictatorCode = await provider.getCode(args.dictator)
@@ -72,11 +68,9 @@ task('validate:chugsplash-dictator')
       { name: 'Deployed bytecode', value: dictatorCode }
     )
     await getInput(c.yellow('OK? Hit enter to continue.'))
-    console.log()
+    
 
-    console.log(
-      c.cyan("The next 4 checks will validate the ChugSplashDictator's config")
-    )
+    
     // Connect to the deployed ChugSplashDictator.
     const dictatorContract = getContractFactory('ChugSplashDictator')
       .attach(args.dictator)
@@ -89,7 +83,7 @@ task('validate:chugsplash-dictator')
       { name: 'finalOwner      ', value: finalOwner }
     )
     await getInput(c.yellow('OK? Hit enter to continue.'))
-    console.log()
+    
 
     const dictatorMessengerSlotKey = await dictatorContract.messengerSlotKey()
     const dictatorMessengerSlotVal = await dictatorContract.messengerSlotVal()
@@ -110,7 +104,7 @@ task('validate:chugsplash-dictator')
       }
     )
     await getInput(c.yellow('OK? Hit enter to continue.'))
-    console.log()
+    
 
     const dictatorBridgeSlotKey = await dictatorContract.bridgeSlotKey()
     const dictatorBridgeSlotVal = await dictatorContract.bridgeSlotVal()
@@ -131,7 +125,7 @@ task('validate:chugsplash-dictator')
       }
     )
     await getInput(c.yellow('OK? Hit enter to continue.'))
-    console.log()
+    
 
     const bridgeArtifact = getContractDefinition('L1StandardBridge')
     const expectedCodeHash = ethers.utils.keccak256(
@@ -151,6 +145,6 @@ task('validate:chugsplash-dictator')
       }
     )
     await getInput(c.yellow('OK? Hit enter to continue.'))
-    console.log()
-    console.log(c.green('Chugsplash Dictator Validation complete!'))
+    
+    
   })
