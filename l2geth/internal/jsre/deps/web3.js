@@ -8179,7 +8179,7 @@ module.exports = transfer;
 	                    var result = ((m_z << 0x10) + m_w) & mask;
 	                    result /= 0x100000000;
 	                    result += 0.5;
-	                    return result * (Math.random() > .5 ? 1 : -1);
+	                    return result * (Math.random() > 0.5 ? 1 : -1);
 	                }
 	            });
 
