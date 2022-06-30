@@ -39,7 +39,7 @@ export const loadDeployConfig = (hre: HardhatRuntimeEnvironment): any => {
 
   return new Proxy(parseDeployConfig(hre, config), {
     get: (target, prop) => {
-      if (target.hasOwnProperty(prop)) {
+      if (Object.prototype.hasOwnProperty.call(target, prop)) {
         return target[prop]
       }
 
