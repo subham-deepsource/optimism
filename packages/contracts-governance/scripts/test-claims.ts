@@ -14,12 +14,12 @@ task('test-claims')
         args.distributorAddress
       )
     ).connect(hre.ethers.provider)
-    console.log('Reading claims...')
+    
     const json = JSON.parse(
       fs.readFileSync(args.inFile, { encoding: 'utf8' })
     ) as MerkleDistributorInfo
 
-    console.log('Smoke testing 100 random claims.')
+    
     const addresses = Object.keys(json.claims)
     for (let i = 0; i < 100; i++) {
       const index = Math.floor(addresses.length * Math.random())
@@ -34,5 +34,5 @@ task('test-claims')
       )
       process.stdout.write('OK\n')
     }
-    console.log('Smoke test passed.')
+    
   })

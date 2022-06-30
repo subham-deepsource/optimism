@@ -20,13 +20,13 @@ task('mint-initial-supply', 'Mints the initial token supply')
     )
     const amount = args.amount
     const amountBase = ethers.utils.parseEther(amount)
-    console.log('Please verify initial mint amount and recipient.')
-    console.log('!!! THIS IS A ONE-WAY ACTION !!!')
-    console.log('')
-    console.log(`Amount:              ${args.amount}`)
-    console.log(`Amount (base units): ${amountBase.toString()}`)
-    console.log(`Recipient:           ${minter.address}`)
-    console.log('')
+    
+    
+    
+    
+    
+    
+    
 
     const govToken = await hre.ethers.getContractAt(
       'GovernanceToken',
@@ -61,25 +61,21 @@ task('mint-initial-supply', 'Mints the initial token supply')
     const tx = await mintManager.mint(minter.address, amountBase, {
       gasLimit: 3_000_000,
     })
-    console.log(`Sent transaction ${tx.hash}`)
+    
     await tx.wait()
-    console.log('Successfully minted. Verifying...')
+    
 
     const supply = await govToken.totalSupply()
     if (supply.eq(amountBase)) {
-      console.log('Total supply verified.')
+      
     } else {
-      console.log(
-        `Total supply invalid! Have: ${supply.toString()}, want: ${amountBase.toString()}.`
-      )
+      
     }
 
     const bal = await govToken.balanceOf(minter.address)
     if (bal.eq(amountBase)) {
-      console.log('Balance verified.')
+      
     } else {
-      console.log(
-        `Minter balance invalid! Have: ${bal.toString()}, want: ${amountBase.toString()}.`
-      )
+      
     }
   })

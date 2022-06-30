@@ -48,7 +48,7 @@ task('withdraw-fees')
       signer = new LedgerSigner(provider, 'default', args.ledgerPath)
     }
     if (args.dryRun) {
-      console.log('Performing dry run of fee withdrawal...')
+      
     }
 
     const l2FeeVault = getContractFactory('OVM_SequencerFeeVault')
@@ -58,27 +58,17 @@ task('withdraw-fees')
     const signerAddress = await signer.getAddress()
     const signerBalance = await provider.getBalance(signerAddress)
     const signerBalanceInETH = ethers.utils.formatEther(signerBalance)
-    console.log(
-      `Using L2 signer ${signerAddress} with a balance of ${signerBalanceInETH} ETH`
-    )
+    
     const l1FeeWallet = await l2FeeVault.l1FeeWallet()
     const amount = await provider.getBalance(l2FeeVault.address)
     const amountInETH = ethers.utils.formatEther(amount)
-    console.log(
-      `${
-        args.dryRun ? '[DRY RUN] ' : ''
-      }Withdrawing ${amountInETH} ETH to the L1 address: ${l1FeeWallet}`
-    )
+    
     if (args.dryRun) {
       await l2FeeVault.estimateGas.withdraw()
       return
     } else {
       const withdrawTx = await l2FeeVault.withdraw()
-      console.log(
-        `Withdrawal complete: https://optimistic.etherscan.io/tx/${withdrawTx.hash}`
-      )
-      console.log(
-        `Complete withdrawal in 1 week here: https://optimistic.etherscan.io/address/${predeploys.OVM_SequencerFeeVault}#withdrawaltxs`
-      )
+      
+      
     }
   })

@@ -13,6 +13,6 @@ args = args
 
 const main = async () => {
   const proof = await generateMockWithdrawalProof('0x' + args)
-  console.log(proof.storageTrieWitness.slice(2))
+  
 }
 main()

@@ -58,7 +58,7 @@ type ethNetwork = 'mainnet' | 'kovan' | 'goerli'
     })
 
     const stop = async (signal) => {
-      console.log(`"{"msg": "${signal} - Stopping data-transport layer"}"`)
+      
       await service.stop()
       process.exit()
     }

@@ -113,23 +113,20 @@ Object.keys(json.claims).forEach((address) => {
     amount: BigNumber.from(claim.amount),
   })
   if (verifyProof(claim.index, address, claim.amount, proof, merkleRoot)) {
-    console.log('Verified proof for', claim.index, address)
+    
   } else {
-    console.log('Verification for', address, 'failed')
+    
     valid = false
   }
 })
 
 if (!valid) {
-  console.error('Failed validation for 1 or more proofs')
+  
   process.exit(1)
 }
-console.log('Done!')
+
 
 // Root
 const root = getRoot(balances).toString('hex')
-console.log('Reconstructed merkle root', root)
-console.log(
-  'Root matches the one read from the JSON?',
-  root === merkleRootHex.slice(2)
-)
+
+

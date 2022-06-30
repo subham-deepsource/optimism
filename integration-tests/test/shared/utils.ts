@@ -208,7 +208,7 @@ export const conditionalTest = (
   it(name, async function () {
     const shouldRun = await condition()
     if (!shouldRun) {
-      console.log(message)
+      
       this.skip()
       return
     }
@@ -271,7 +271,7 @@ export const isHardhat = async () => {
 }
 
 export const die = (...args) => {
-  console.log(...args)
+  
   process.exit(1)
 }
 

@@ -44,7 +44,7 @@ task('fetch-batches')
 
     for (let i = start; i <= end; i += 2001) {
       const tip = Math.min(i + 2000, end)
-      console.error(`Querying events ${i}-${tip}`)
+      
 
       const events = await CanonicalTransactionChain.queryFilter(
         CanonicalTransactionChain.filters.SequencerBatchAppended(),
@@ -97,5 +97,5 @@ task('fetch-batches')
       }
     }
 
-    console.log(JSON.stringify(batches, null, 2))
+    
   })

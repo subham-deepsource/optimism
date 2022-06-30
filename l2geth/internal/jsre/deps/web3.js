@@ -2693,7 +2693,7 @@ AllSolidityEvents.prototype.decode = function (data) {
     })[0];
 
     if (!match) { // cannot find matching event?
-        console.warn('cannot find event for log');
+        
         return data;
     }
 
@@ -4674,7 +4674,7 @@ var IpcProvider = function (path, net) {
     this.connection = net.connect({path: this.path});
 
     this.connection.on('error', function(e){
-        console.error('IPC Connection Error', e);
+        
         _this._timeout();
     });
 
@@ -4885,7 +4885,7 @@ var Jsonrpc = {
  */
 Jsonrpc.toPayload = function (method, params) {
     if (!method)
-        console.error('jsonrpc method should be specified!');
+        {}
 
     // advance message ID
     Jsonrpc.messageId++;
@@ -6336,7 +6336,7 @@ var RequestManager = function (provider) {
  */
 RequestManager.prototype.send = function (data) {
     if (!this.provider) {
-        console.error(errors.InvalidProvider());
+        
         return null;
     }
 
@@ -6488,7 +6488,7 @@ RequestManager.prototype.poll = function () {
     }
 
     if (!this.provider) {
-        console.error(errors.InvalidProvider());
+        
         return;
     }
 

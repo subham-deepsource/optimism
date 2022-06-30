@@ -41,7 +41,7 @@ task('deploy-teleportr-l1')
       const { deploy } = hre.deployments
       const { deployer } = await hre.getNamedAccounts()
 
-      console.log('Deploying TeleportrDeposit... ')
+      
       await deploy('TeleportrDeposit', {
         from: deployer,
         args: [
@@ -52,7 +52,7 @@ task('deploy-teleportr-l1')
         log: true,
         waitConfirmations: numDeployConfirmations,
       })
-      console.log('Done.')
+      
     }
   )
 
@@ -61,13 +61,13 @@ task('deploy-teleportr-l2').setAction(
     const { deploy } = hre.deployments
     const { deployer } = await hre.getNamedAccounts()
 
-    console.log('Deploying TeleportrDisburser... ')
+    
     await deploy('TeleportrDisburser', {
       from: deployer,
       args: [],
       log: true,
       waitConfirmations: numDeployConfirmations,
     })
-    console.log('Done.')
+    
   }
 )

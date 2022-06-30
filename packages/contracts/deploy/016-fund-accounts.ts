@@ -45,11 +45,7 @@ const deployFn: DeployFunction = async (hre) => {
           value: depositAmount,
           gasLimit: 2_000_000, // Idk, gas estimation was broken and this fixes it.
         })
-        console.log(
-          `✓ Funded ${wallet.address} on L2 with ${hre.ethers.utils.formatEther(
-            depositAmount
-          )} ETH`
-        )
+        
       })
     )
   }

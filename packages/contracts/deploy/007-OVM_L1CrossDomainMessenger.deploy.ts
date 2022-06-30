@@ -25,10 +25,10 @@ const deployFn: DeployFunction = async (hre) => {
       // a proxy. However, it's best practice to initialize it anyway just in case there's
       // some unknown security hole. It also prevents another user from appearing like an
       // official address because it managed to call the initialization function.
-      console.log(`Initializing L1CrossDomainMessenger (implementation)...`)
+      
       await contract.initialize(Lib_AddressManager.address)
 
-      console.log(`Checking that contract was correctly initialized...`)
+      
       await awaitCondition(
         async () => {
           return hexStringEquals(
@@ -42,13 +42,11 @@ const deployFn: DeployFunction = async (hre) => {
 
       // Same thing as above, we want to transfer ownership of this contract to the owner of the
       // AddressManager. Not technically necessary but seems like the right thing to do.
-      console.log(
-        `Transferring ownership of L1CrossDomainMessenger (implementation)...`
-      )
+      
       const owner = hre.deployConfig.ovmAddressManagerOwner
       await contract.transferOwnership(owner)
 
-      console.log(`Checking that contract owner was correctly set...`)
+      
       await awaitCondition(
         async () => {
           return hexStringEquals(await contract.owner(), owner)

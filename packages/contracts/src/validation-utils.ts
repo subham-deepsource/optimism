@@ -66,10 +66,8 @@ const truncateLongString = (value: string): string => {
 }
 
 export const printSectionHead = (msg: string) => {
-  console.log(color.cyan(msg))
-  console.log(
-    color.cyan('='.repeat(Math.max(...msg.split('\n').map((s) => s.length))))
-  )
+  
+  
 }
 
 export const printComparison = (
@@ -78,16 +76,12 @@ export const printComparison = (
   expected: { name: string; value: any },
   deployed: { name: string; value: any }
 ) => {
-  console.log(`\n${action}:`)
+  
   if (hexStringEquals(expected.value, deployed.value)) {
-    console.log(
-      color.green(`${expected.name}: ${truncateLongString(expected.value)}`)
-    )
-    console.log('matches')
-    console.log(
-      color.green(`${deployed.name}: ${truncateLongString(deployed.value)}`)
-    )
-    console.log(color.green(`${description} looks good! 😎`))
+    
+    
+    
+    
   } else {
     throw new Error(
       `${description} looks wrong. ${expected.value}\ndoes not match\n${deployed.value}.`

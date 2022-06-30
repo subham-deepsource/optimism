@@ -13,7 +13,7 @@ task('install-drippie-config-multisig')
       throw new Error(`given safe is not an address: ${args.safe}`)
     }
 
-    console.log(`connecting to Drippie...`)
+    
     const Drippie = await hre.ethers.getContractAt(
       'Drippie',
       (
@@ -21,7 +21,7 @@ task('install-drippie-config-multisig')
       ).address
     )
 
-    console.log(`loading local version of Drippie config for network...`)
+    
     const config = await getDrippieConfig(hre)
 
     // Gnosis Safe transaction bundle.
@@ -39,13 +39,13 @@ task('install-drippie-config-multisig')
       transactions: [],
     }
 
-    console.log(`generating transaction bundle...`)
+    
     for (const [dripName, dripConfig] of Object.entries(config)) {
-      console.log(`checking config for drip: ${dripName}`)
+      
       const drip = await Drippie.drips(dripName)
       if (drip.status === 0) {
-        console.log(`drip does not exist yet: ${dripName}`)
-        console.log(`adding drip creation to bundle...`)
+        
+        
         bundle.transactions.push({
           to: Drippie.address,
           value: '0',
@@ -110,15 +110,15 @@ task('install-drippie-config-multisig')
           },
         })
       } else if (!isSameConfig(dripConfig, drip.config)) {
-        console.log(`drip exists but local config is different: ${dripName}`)
-        console.log(`drips cannot be modified for security reasons`)
-        console.log(`please do not modify the local config for existing drips`)
-        console.log(`you can archive the old drip and create another`)
+        
+        
+        
+        
       } else {
-        console.log(`drip is already installed`)
+        
       }
     }
 
-    console.log(`writing bundle to ${args.outfile}...`)
+    
     fs.writeFileSync(args.outfile, JSON.stringify(addChecksum(bundle), null, 2))
   })

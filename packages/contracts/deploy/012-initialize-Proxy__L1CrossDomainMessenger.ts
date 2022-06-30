@@ -27,10 +27,10 @@ const deployFn: DeployFunction = async (hre) => {
     names.unmanaged.Lib_AddressManager
   )
 
-  console.log(`Initializing Proxy__OVM_L1CrossDomainMessenger...`)
+  
   await Proxy__OVM_L1CrossDomainMessenger.initialize(Lib_AddressManager.address)
 
-  console.log(`Checking that contract was correctly initialized...`)
+  
   await awaitCondition(
     async () => {
       return hexStringEquals(
@@ -42,11 +42,11 @@ const deployFn: DeployFunction = async (hre) => {
     100
   )
 
-  console.log(`Setting Proxy__OVM_L1CrossDomainMessenger owner...`)
+  
   const owner = hre.deployConfig.ovmAddressManagerOwner
   await Proxy__OVM_L1CrossDomainMessenger.transferOwnership(owner)
 
-  console.log(`Checking that the contract owner was correctly set...`)
+  
   await awaitCondition(
     async () => {
       return hexStringEquals(

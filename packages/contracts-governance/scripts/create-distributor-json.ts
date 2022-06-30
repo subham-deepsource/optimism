@@ -46,9 +46,7 @@ task('create-distributor-json')
     for (let i = 0; i < records.length; i++) {
       const record = records[i]
       if (record.address.slice(0, 2) !== '0x') {
-        console.log(
-          `Generating fallback address for ${record.name}. Account index: ${i}`
-        )
+        
         const wallet = hre.ethers.Wallet.fromMnemonic(
           args.mnemonic,
           `m/44'/60'/0'/0/${i}`
@@ -59,9 +57,9 @@ task('create-distributor-json')
     }
 
     fs.writeFileSync(args.outFile, JSON.stringify(records, null, ' '))
-    console.log(`Total: ${total.toString()}`)
+    
     if (total.eq(1_434_262_041)) {
-      console.log('AMOUNTS VERIFIED')
+      
     } else {
       throw new Error('AMOUNTS INVALID')
     }

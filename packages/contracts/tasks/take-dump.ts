@@ -34,9 +34,7 @@ task('take-dump').setAction(async (args, hre) => {
     hre.deployConfig.ovmWhitelistOwner === undefined ||
     hre.deployConfig.ovmWhitelistOwner === ethers.constants.AddressZero
   ) {
-    console.log(
-      'WARNING: whitelist owner is undefined or address(0), whitelist will be disabled'
-    )
+    
   }
 
   const variables = {

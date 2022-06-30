@@ -86,13 +86,13 @@ task('whitelist')
       .attach(args.contractAddress)
 
     const addr = await signer.getAddress()
-    console.log(`Using signer: ${addr}`)
+    
     const owner = await deployerWhitelist.owner()
     if (owner === '0x0000000000000000000000000000000000000000') {
-      console.log(`Whitelist is disabled. Exiting early.`)
+      
       return
     } else {
-      console.log(`OVM_DeployerWhitelist owner: ${owner}`)
+      
     }
 
     if (addr !== owner) {
@@ -112,8 +112,8 @@ task('whitelist')
     }
 
     for (const address of addresses) {
-      console.log(`Changing whitelist status for address: ${address}`)
-      console.log(`New whitelist status: ${args.whitelistMode}`)
+      
+      
       const res = await deployerWhitelist.setWhitelistedDeployer(
         address,
         args.whitelistMode === 'enable' ? true : false,
