@@ -14,14 +14,14 @@ const ERR_ALREADY_INITIALIZED = 'Initializable: contract is already initialized'
 const ERR_INVALID_MESSENGER = 'OVM_XCHAIN: messenger contract unauthenticated'
 const ERR_INVALID_X_DOMAIN_MSG_SENDER =
   'OVM_XCHAIN: wrong sender of cross-domain message'
-const DUMMY_L1BRIDGE_ADDRESS: string =
+const DUMMY_L1BRIDGE_ADDRESS =
   '0x1234123412341234123412341234123412341234'
-const DUMMY_L1ERC721_ADDRESS: string =
+const DUMMY_L1ERC721_ADDRESS =
   '0x2234223412342234223422342234223422342234'
-const ERR_INVALID_WITHDRAWAL: string =
+const ERR_INVALID_WITHDRAWAL =
   'Withdrawal is not being initiated by NFT owner'
-const ALICE_INITIAL_BALANCE: number = 10
-const TOKEN_ID: number = 10
+const ALICE_INITIAL_BALANCE = 10
+const TOKEN_ID = 10
 
 describe('L2ERC721Bridge', () => {
   let alice: Signer

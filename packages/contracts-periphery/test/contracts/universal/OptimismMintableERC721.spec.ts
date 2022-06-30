@@ -7,7 +7,7 @@ import { smock, FakeContract } from '@defi-wonderland/smock'
 import { expect } from '../../setup'
 
 const TOKEN_ID = 10
-const DUMMY_L1ERC721_ADDRESS: string =
+const DUMMY_L1ERC721_ADDRESS =
   '0x0034223412342234223422342234223422342234'
 
 describe('OptimismMintableERC721', () => {

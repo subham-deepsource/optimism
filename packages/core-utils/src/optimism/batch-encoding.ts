@@ -104,13 +104,13 @@ export const sequencerBatch = {
 
 export class Context extends Struct {
   // 3 bytes
-  public numSequencedTransactions: number = 0
+  public numSequencedTransactions = 0
   // 3 bytes
-  public numSubsequentQueueTransactions: number = 0
+  public numSubsequentQueueTransactions = 0
   // 5 bytes
-  public timestamp: number = 0
+  public timestamp = 0
   // 5 bytes
-  public blockNumber: number = 0
+  public blockNumber = 0
 
   constructor(options: Partial<Context> = {}) {
     super()

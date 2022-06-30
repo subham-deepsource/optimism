@@ -14,9 +14,9 @@ import { expect } from './shared/setup'
 import { OptimismEnv } from './shared/env'
 import { withdrawalTest } from './shared/utils'
 
-const TOKEN_ID: number = 1
-const FINALIZATION_GAS: number = 1_200_000
-const NON_NULL_BYTES: string = '0x1111'
+const TOKEN_ID = 1
+const FINALIZATION_GAS = 1_200_000
+const NON_NULL_BYTES = '0x1111'
 
 describe('ERC721 Bridge', () => {
   let env: OptimismEnv

@@ -422,7 +422,7 @@ describe('MerkleDistributor', () => {
           this.skip()
         }
         let total: BigNumber = BigNumber.from(0)
-        let count: number = 0
+        let count = 0
         for (let i = 0; i < NUM_LEAVES; i += NUM_LEAVES / NUM_SAMPLES) {
           const proof = tree.getProof(i, wallet0.address, BigNumber.from(100))
           const tx = await distributor.claim(
@@ -445,7 +445,7 @@ describe('MerkleDistributor', () => {
           this.skip()
         }
         let total: BigNumber = BigNumber.from(0)
-        let count: number = 0
+        let count = 0
         for (let i = 0; i < 25; i++) {
           const proof = tree.getProof(i, wallet0.address, BigNumber.from(100))
           const tx = await distributor.claim(
