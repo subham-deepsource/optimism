@@ -58,7 +58,7 @@ export interface BatchElement {
 
   // Only exists on transaction batch elements.
   isSequencerTx: boolean
-  rawTransaction: undefined | string
+  rawTransaction: string
 
   // Batch element context, exists on all batch elements.
   timestamp: number
