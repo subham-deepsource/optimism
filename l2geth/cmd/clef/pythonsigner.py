@@ -45,7 +45,7 @@ class PipeTransport(ServerTransport):
 
 class StdIOHandler():
     def __init__(self):
-        pass
+        raise NotImplementedError()
 
     @public
     def ApproveTx(self,req):
