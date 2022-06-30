@@ -7945,7 +7945,7 @@ module.exports = transfer;
 	                }
 
 	                // Create default initializer
-	                if (!subtype.hasOwnProperty('init') || this.init === subtype.init) {
+	                if (!Object.prototype.hasOwnProperty.call(subtype, 'init') || this.init === subtype.init) {
 	                    subtype.init = function () {
 	                        subtype.$super.init.apply(this, arguments);
 	                    };
@@ -8007,13 +8007,13 @@ module.exports = transfer;
 	             */
 	            mixIn: function (properties) {
 	                for (var propertyName in properties) {
-	                    if (properties.hasOwnProperty(propertyName)) {
+	                    if (Object.prototype.hasOwnProperty.call(properties, propertyName)) {
 	                        this[propertyName] = properties[propertyName];
 	                    }
 	                }
 
 	                // IE won't copy toString using the loop above
-	                if (properties.hasOwnProperty('toString')) {
+	                if (Object.prototype.hasOwnProperty.call(properties, 'toString')) {
 	                    this.toString = properties.toString;
 	                }
 	            },
